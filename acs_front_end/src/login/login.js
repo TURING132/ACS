@@ -16,7 +16,9 @@ export default function Login({ nowstate }) {
     setLoading(true);
     try {
       const hashedPassword = CryptoJS.SHA256(values.password).toString();
-    //   const formData = new FormData();
+      const formData = new FormData();
+      formData.append('number', values.number);
+      formData.append('password', hashedPassword);
     //   formData.append('number', values.number);
     //   formData.append('password', hashedPassword);
     //   console.log(formData)
@@ -26,7 +28,7 @@ export default function Login({ nowstate }) {
     //     // body: formData,
     //   });
       axios
-        .post("http://127.0.0.1:5000/api/user/login/", {number:values.number, password: hashedPassword})
+        .post("http://127.0.0.1:5000/api/user/login/", formData)
         .then((response) => {
           const data = response;
           console.log('data:', data);
